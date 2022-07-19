@@ -1,0 +1,74 @@
+%!TEX program = xelatex
+
+
+%1.1
+%\documentclass{article}
+%\begin{document}
+%   ``Hello world!'' from \LaTeX
+%\end{document}
+
+%⟨path⟩ 中的多级目录在 Windows 系统上使用反斜线 \ 分隔，
+%而在类 Unix 系统上使用正斜线 / 分隔。
+%如果 ⟨path⟩ 中带有空格，则需加上引号 "。
+%此外，在 Windows 系统上如果要切换到其他分区，
+%还需加上 /d 选项，
+%例如 cd /d "C:\Program Files (x86)\"。
+
+%1.2
+\documentclass{ctexart}
+%导言区,常使用\usepackage命令调用宏包
+\begin{document}
+%正文内容
+    “你好，世界！” 来自 \LaTeX{}的问候。
+%1.3.1
+    Shall we call ourselves \TeX users
+    or \TeX{} users?
+    \TeX\ users
+
+\end{document}
+
+%此后内容会被忽略
+
+%1.4.1
+%\documentclass[option可选参数]{class-name文档名称}
+%[文档指定选项，以全局地规定一些排版参数，
+%如字号、纸张大小、单双面]
+
+%{LaTeX提供的article/report/book/proc/slides/minimal,
+%支持中文排版的ctexart/ctexrep/ctexbook，
+%其他功能的一些文档moderncv/beamer}
+
+%\documentclass[11pt,twoside,a4paper]{article}
+
+%1.4.2宏包
+%\usepackage[option]{package-name}
+
+%在Windows命令行提示符下或Linux终端输入查询帮助文档
+%texdoc <pkg-name>
+
+%一次性调用三个排版表格常用的宏包
+%\usepackage{tabularx,makecell,multirow}
+
+%1.5宏包文件
+%.sty宏包文件
+%.cls文档类文件
+%.bibBIBTEX参考文献数据库文件
+%.bst参考文献格式模板
+
+%1.6文件的组织方式
+%\include{filename}LATEX2020-10-01之后允许添加扩展名
+%不在一个目录添加相对或绝对路径
+%\include{chapters/file}%相对路径
+%\include{/home/Bob/file}%*nix(包含Linux、macOS)绝对路径
+%\include{D:/file}%Windows绝对路径，用正斜体
+
+%/include{}读入文件另起一页
+%/input{}文件内容插入
+
+%/includeonly{filename1,filename2,...}用于导言区，指定载入某些文件
+%载入文件名不要加空格和特殊字符，尽量避免中文名，可能出错
+
+%1.7
+
+
+

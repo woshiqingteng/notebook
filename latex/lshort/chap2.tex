@@ -1,0 +1,126 @@
+%!TEX program = xelatex
+
+%2.1
+%计算机的基本存储单位是字节（byte），
+%每个字节为八位（8-bit）,
+%范围用十六进制写作0x00–0xFF。
+%ASCII（美国通用信息交换码）使用 0x00–0x7F 对文字编码，
+%也就是 7-bit，覆盖了基本的拉丁字母、数字和符号，
+%以及一些不可打印的控制字符（如换行符、制表符等）。
+
+%2.2排版中文
+\documentclass{ctexart}
+\begin{document}
+在\LaTeX{}中排版中文。
+汉字和English单词混排，通常不需要在中英文之间添加额外的空格。
+当然，为了代码的可读性，加上汉字和 English 之间的空格也无妨。
+汉字换行时不会引入多余的空格。
+
+%2.3LATEX中的字符
+%2.3.1空格和分段
+Several space    equal one.
+    Front space are ignored.
+
+An empty line starts a new paragrah.\par
+A \verb|\par| command does the same.
+
+%2.3.2
+This is an % short comment
+% ---
+% Long and organized
+% comments
+% ---
+example: Comments do not bre%
+ak a word.
+
+%2.3.3特殊字符
+\# \$ \% \& \{ \} \_
+\^{} \~{} \textbackslash
+
+%2.3.4连字
+It's difficult to find \ldots\\
+It's dif{}f{}icult to f{}ind \ldots
+%常见的连字(ligatures),ff/fi/fl/ffi/ffl
+
+%2.3.5标点符号
+%引号
+``Please press the `x' key.''
+%连字号和破折号
+%连字号（hyphen）组成复合词、
+%短破折号（en-dash）连接数字表示范围、
+%长破折号（em-dash）连接单词
+
+daughter-in-law, X-rated\\
+pages 13--67\\
+yes---or no?
+
+%省略号
+one, two, there, \ldots one hundred.
+%波浪号
+
+%2.3.6拉丁文扩展与重音
+H\^otal, na\"\i ve, \'el\`eve,\\
+sm\o rreber\o d, !`Se\ norital!,\\
+Sch\"onbrunner Schlo\ss{}
+Stra\ss e
+
+%2.3.7其他符号
+\P{} \S{} \dag{} \ddag{}
+\copyright{} \pounds{}
+
+\textasteriskcentered
+\textperiodcentered
+\textbullet
+
+\textregistered{} \texttrademark
+
+%LATEX标志
+
+\TeX\\
+\LaTeX\\
+\LaTeXe
+
+%2.4断行和断页
+
+%2.4.1单词间距
+Fig.~2a \\
+Donald~E. Knuth
+
+%2.4.2手动断行和断页
+%\\[length]   \\*[length]
+%可选参数length，在断行处向下增加垂直间距
+%\\也在表格、公式等地方用于换行
+%带星号的\\表示禁止在断行处分页
+%\newline
+%不带可选参数
+%\newline只用于文本段落
+
+另外需要注意的是，使用\verb|\\|断行处命令\\
+不会令内容另起一段，而是在段落中直接开始新的一行。
+
+%断页命令
+%\newpage
+%\clearpage
+%双栏排版模式中\newpage起到另起一栏作用，\clearpage另起一页
+%设计浮动体排版不同
+
+%断页
+%\linebreak[n] \nolinebreak[n]
+%\pagebreak[n] \nopagebreak[n]
+%n代表适合/不适合的程度，取值范围0-4，缺省为4
+
+使用\verb|\newline| 断行的效果
+\newline
+与使用\verb|\linebreak|断行的效果
+\linebreak
+进行对比
+
+%2.4.3断词
+I think this is: su\-per\-cal\-%
+i\-frag\-i\-lis\-tic\-ex\-pi\-%
+al\-i\-do\-cious
+
+\end{document}
+
+
+

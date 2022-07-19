@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+%%圆弧
+\def\wideparen#1{\mathord{
+\begin{tikzpicture}
+\node[inner sep=0pt] (a) {$#1$};
+\fill (a.north west)[bend left=25]to(a.north east)
+[bend right=33]to(a.north west);
+\end{tikzpicture}
+}
+}
+%%带箭头的弧
+\def\xwideparen#1{\mathord{
+\begin{tikzpicture}
+\node[inner sep=0pt] (a) {$#1$};
+\fill (a.north west)[bend left=25]to(a.north east)
+[bend right=33]to(a.north west);
+\draw[line width=0pt,-{Stealth[width=1.8pt]}](a.north west)[bend left=29]to(a.north east);
+\end{tikzpicture}
+}
+}
+%%集合的势，顶部双横线，
+\def\xbar#1{\mathord{
+\begin{tikzpicture}
+\node[inner sep=0pt](a){$#1$};
+\draw([shift={(0.2ex,0.2ex)}]a.north west)--
+([shift={(-0.2ex,0.2ex)}]a.north east);
+\draw([shift={(0.2ex,0.5ex)}]a.north west)--
+([shift={(-0.2ex,0.5ex)}]a.north east);
+\end{tikzpicture}
+}
+}
+%%带箭头的帽子
+\def\xhat#1{\mathord{
+\begin{tikzpicture}
+\node[inner sep=0pt](a){$#1$};
+\draw[{Stealth[width=0.4ex,length=0.5ex]}-{Stealth[width=0.4ex,length=0.5ex]}]
+([shift={(0.6ex,0.2ex)}]a.north west)--++(0,1ex)--([shift={(-0.6ex,1.2ex)}]a.north east)--++(0,-1ex);
+\end{tikzpicture}
+}
+}
+\begin{document}
+\[\wideparen{ABC}\xbar{A}\xwideparen{AB}\xhat{ABC}\]
+
+\end{document}

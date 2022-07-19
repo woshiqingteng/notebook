@@ -1,0 +1,401 @@
+%!TEX program = xelatex
+
+\documentclass[12pt]{ctexrep}
+
+\usepackage{geometry}
+\usepackage{multicol}
+\geometry{a4paper,left=1.25in,right=1.25in,top=1in,bottom=1in}
+%\usepackage{ulem}
+
+
+
+\begin{document}
+
+\setlength{\parindent}{0em}
+
+%5.1字体和字号
+{\small The small and
+\textbf{bold} Romans ruled}
+{\Large all of great big 
+{\itshape Italy}.}
+
+%5.1.1字体样式
+%LATEX 提供了两组修改字体的命令，
+%其中诸如 \bfseries 形式的命令将会影响之后所有的字符，
+%如果想要让它在局部生效，需要用花括号分组，
+%也就是写成 {\bfseries ⟨sometext⟩} 这样的形式；
+%对应的 \textbf 形式带一个参数，只改变参数内部的字体，更为常用。
+%在公式中，直接使用 \textbf 等命令不会起效，甚至报错。
+%LATEX 提供了修改数学字母样式的命令，如 \mathbf 等
+
+%5.1.2字号
+He likes {\LARGE large and 
+{\small small} letters}.
+
+%LATEX 还提供了一个基础的命令
+%\fontsize 用于设定任意大小的字号：
+%\fontsize{⟨size⟩}{⟨base line-skip⟩}
+%\fontsize 用到两个参数，
+%⟨size⟩ 为字号，⟨base line-skip⟩ 为基础行距。
+%如果不是在导言区，\fontsize 的设定需要 
+%\selectfont 命令才能立即生效
+
+%5.1.3选用字体宏包
+
+%5.1.4字体编码
+%切换字体编码要用到 fontenc 宏包：
+%\usepackage[T1]{fontenc}
+
+%如果使用xelatex 编译方式，
+%并使用 fontspec 宏包调用 ttf 或 otf 格式字体，
+%就不要再使用 fontenc 宏包。
+
+%5.1.5使用fontspec宏包更改字体
+%xelatex 和 lualatex 命令下支持用户调用字体的宏包是fontspec。
+%宏包提供了几个设置全局字体的命令，
+%设置 \rmfamily 等对应命令的默认字体
+
+%\setmainfont{⟨font name⟩}[⟨font features⟩]
+%\setsansfont{⟨font name⟩}[⟨font features⟩]
+%\setmonofont{⟨font name⟩}[⟨font features⟩]
+
+%其中 ⟨font name⟩ 使用字体的文件名（带扩展名）或者字体的英文名称。
+%⟨font features⟩ 用来手动配置对应的粗体或斜体，
+%比如为 Windows 下的无衬线字体 Arial 配置粗体和斜体
+%（通常情况下自动检测并设置对应的粗体和斜体，无需手动指定）：
+%\setsansfont{Arial}[BoldFont={Arial Bold}, ItalicFont={Arial Italic}]
+
+%需要注意的是，fontspec 宏包会覆盖数学字体设置。
+%需要调用一些数学字体宏包时，
+%应当在调用 fontspec 宏包时指定 no-math 选项。
+%fontspec宏包可能被其它宏包或文档类（如 ctex 文档类）自动调用时，
+%则在文档开头的\documentclass 命令里指定 no-math 选项。
+
+%5.1.6在ctex宏包或文档类中更改中文字体
+%\setCJKmainfont{⟨font name⟩}[⟨font features⟩]
+%\setCJKsansfont{⟨font name⟩}[⟨font features⟩]
+%\setCJKmonofont{⟨font name⟩}[⟨font features⟩]
+
+%由于中文字体少有对应的粗体或斜体，
+%⟨font features⟩ 里多用其他字体来配置，
+%比如在 Windows 中设定基本字体为宋体，
+%并设定对应的 BoldFont 为黑体，ItalicFont 为楷体：
+%\setCJKmainfont{SimSun}[BoldFont=SimHei, ItalicFont=KaiTi]
+
+%5.1.7使用unicode-math宏包配置Unicode数学字体
+%Unicode 数学字体是一类 OpenType 字体，
+%包含了 Unicode 字符集中的数学符号部分，
+%字体中也设定了数学公式排版所需的一些参数
+%在导言区使用 \usepackage{unicode-math} 后，
+%使用 \setmathfont 命令即可：
+%\setmathfont{⟨font name⟩}[⟨font features⟩]
+
+%5.2文字装饰和强调
+An \underline{underlined} text.
+
+%\underline 命令生成下划线的样式不够灵活，
+%不同的单词可能生成高低各异的下划线，并且无法换行。
+%ulem (重新定义了\emph{})宏包提供了更灵活的解决方案，
+%它提供的 \uline 命令能够轻松生成自动换行的下划线：
+
+%An example of \uline{some long and underlined words.}
+
+%\emph 命令，它将文字变为斜体以示强调，
+%而如果在已强调的文字中嵌套使用 \emph 命令，
+%命令内则使用直立体文字：
+Some \emph{emphasized words,
+including \emph{double-emphasized}
+words}, are shown here.
+
+%5.3段落格式和间距
+%5.3.1长度和长度变量
+
+%可伸缩的“弹性长度”，
+%如 12pt plus 2pt minus 3pt 表示基础长度为 12pt，
+%可以伸展到 14pt，也可以收缩到 9pt。
+%也可只定义 plus 或者 minus 的部分，如 0pt plus 5pt。
+%长度的数值还可以用长度变量本身或其倍数来表达，
+%如 2.5\parindent 等。
+
+%自定义长度变量，需使用如下命令：
+%\newlength{\⟨length command⟩}
+
+
+%长度变量可以用 \setlength 赋值，或用 \addtolength 增加长度：
+%\setlength{\⟨length command⟩}{⟨length⟩}
+%\addtolength{\⟨length command⟩}{⟨length⟩}
+
+%5.3.2行距
+%前文中我们提到过 \fontsize 命令可以为字号设定对应的行距，
+%但我们很少那么用。更常用的办法是在导言区使用\linespread 命令。
+%\linespread{⟨factor⟩}
+%其中 ⟨factor⟩ 作用于基础行距而不是字号。
+%缺省的基础行距是 1.2 倍字号大小（参考 \font-size 命令），
+%因此使用 \linespread{1.5} 意味着最终行距为 1.8 倍的字号大小。
+
+%如果不是在导言区全局修改，而想要局部地改变某个段落的行距，
+%需要用 \selectfont 命令使 \linespread 命令的改动立即生效：
+
+{\linespread{2.0}\selectfont
+The baseline skip is set to be 
+twice the normal baseline skip.
+Pay attention to the \verb|\par|
+command at the end. \par }
+
+In comparison, after the 
+curly brace has been closed,
+everything is back to normal.
+
+%字号的改变是即时生效的，而行距的改变直到文字分段时才生效
+
+{\Large Don't read this!
+It is not true.
+You can believe me!
+Don't read this!
+It is not true.
+You can believe me!\par}
+
+{\Large This is not true either.
+But remember I am a liar.
+This is not true either.
+But remember I am a liar.}\par 
+
+%5.3.3段落格式
+%以下长度分别为段落的左缩进、右缩进和首行缩进：
+%\setlength{\leftskip}{⟨length⟩}
+%\setlength{\rightskip}{⟨length⟩}
+%\setlength{\parindent}{⟨length⟩}
+
+%它们和设置行距的命令一样，在分段时生效。
+%控制段落缩进的命令为：
+%\indent
+%\noindent
+
+%LATEX 默认在段落开始时缩进，
+%长度为用上述命令设置的 \parindent。
+%如果需要在某一段不缩进，可在段落开头使用 \noindent 命令。
+%相反地，\indent 命令强制开启一段首行缩进的段落。
+%在段落开头使用多个 \indent 命令可以累加缩进量。
+
+%LATEX 还默认在 \chapter、\section
+% 等章节标题命令之后的第一段不缩进
+%如果不习惯这种设定，可以调用 indentfirst 宏包，
+%令第一段的首行缩进照常
+%ctex 宏包和文档类默认按照中文习惯保持标题后第一段的首行缩进
+
+%段落间的垂直间距为\parskip，如设置段落间距在0.8ex到1.5ex变动：
+%\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+%5.3.4水平间距
+%LATEX 默认为将单词之间的“空格”转化为水平间距。
+%如果需要在文中手动插入额外的水平间距，可使用 \hspace 命令：
+
+This\hspace{1.5cm}is a space of 1.5cm.
+
+%\hspace 命令生成的水平间距如果位于一行的开头或末尾，
+%则有可能因为断行而被舍弃。
+%可使用\hspace* 命令代替\hspace 命令
+%得到不会因断行而消失的水平间距。
+
+%命令 \stretch{⟨n⟩} 生成一个特殊弹性长度，参数 ⟨n⟩ 为权重。
+%它的基础长度为 0pt，但可以无限延伸，直到占满可用的空间。
+%如果同一行内出现多个 \stretch{⟨n⟩}，
+%这一行的所有可用空间将按每个\stretch 命令给定的权重 ⟨n⟩ 进行分配。
+%命令 \fill 相当于 \stretch{1}
+
+x\hspace{\stretch{1}}
+x\hspace{\stretch{3}}
+x\hspace{\fill}x
+
+%在正文中用 \hspace 命令生成水平间距时，往往使用 em 作为单位，
+%生成的间距随字号大小而变。
+%我们在数学公式中见过 \quad 和 \qquad 命令，
+%它们也可以用于文本中，分别相当于
+%\hspace{1em} 和 \hspace{2em}：
+{\Large big\hspace{1em}y}\\
+{\Large big\quad y}\\
+nor\hspace{2em}mal\\
+nor\qquad mal\\
+{\tiny tin\hspace{1em}y}\\
+{\tiny tin\quad y}
+
+%5.3.5垂直间距
+%在页面中，段落、章节标题、行间公式、列表、浮动体
+%等元素之间的间距是 LATEX 预设的。
+%比如 \parskip，默认设置为 0pt plus 1pt。
+%如果我们想要人为地增加段落之间的垂直间距，
+%可以在两个段落之间的位置使用 \vspace命令：
+
+A paragraph.
+
+\vspace{2ex}
+Another paragraph.
+
+%\vspace 命令生成的垂直间距在一页的顶端或底端可能被“吞掉”，
+%类似 \hspace 在一行的开头和末尾那样。
+%对应地，\vspace* 命令产生不会因断页而消失的垂直间距。
+%\vspace 也可用\stretch 设置无限延伸的垂直长度。
+
+%在段落内的两行之间增加垂直间距，
+%一般通过给断行命令 \\ 加可选参数，
+%如 \\[6pt] 或\\*[6pt]。\vspace 也可以在段落内使用，
+%区别在于 \vspace 只引入垂直间距而不断行：
+
+Use command \verb|\vspace{12pt}|
+to add \vspace{12pt} some spaces
+between lines in a paragraph.
+
+Or you can use \verb|\\[12pt]|
+to \\[12pt] add vertical space,
+but it also breaks the line.
+
+%另外 LATEX 还提供了
+%\bigskip, \medskip, \smallskip 来增加预定义长度的垂直间距
+
+\parbox[t]{3em}{TeX\par TeX}
+\parbox[t]{3em}{TeX\par\smallskip TeX}
+\parbox[t]{3em}{TeX\par\medskip TeX}
+\parbox[t]{3em}{TeX\par\bigskip TeX}
+
+%5.4页面和分栏
+%5.4.1利用geometry宏包设置页面参数
+%既可以调用 geometry 宏包，
+%然后用其提供的 \geometry 命令设置页面参数：
+%\usepackage{geometry}
+%\geometry{⟨geometry-settings⟩}
+%也可以直接在宏包选项中设置：
+%\usepackage[⟨geometry-settings⟩]{geometry}
+%其中 ⟨geometry-settings⟩ 多以 ⟨key⟩=⟨value⟩ 的形式组织。
+
+%符合 Microsoft Word 习惯的页面设定是 
+%A4 纸张，上下边距 1 英寸，左右边距 1.25英寸，
+%于是我们可以通过如下两种等效的方式之一设定页边距：
+%\geometry{a4paper,left=1.25in,right=1.25in,top=1in,bottom=1in}
+% or like this:
+%\geometry{a4paper,hmargin=1.25in,vmargin=1in}
+%又比如，需要设定周围的边距一致为 1.25 英寸，可以用更简单的语法：
+%\geometry{margin=1.25in}
+%对于书籍等双面文档，习惯上奇数页右边、偶数页左边留出较大的页边距，
+%而靠近书脊一侧的奇数页左边、偶数页右边页边距较小。我们可以这样设定：
+%\geometry{inner=1in,outer=1.25in}
+
+%5.4.2页面内容的垂直对齐
+%以下命令分别令页面在垂直方向向顶部对齐/分散对齐：
+%\raggedbottom
+%\flushbottom
+
+%5.4.3分栏
+%标准文档类的全局选项 onecolumn、twocolumn 
+%可控制全文分单栏或双栏排版。
+%LATEX 也提供了切换单/双栏排版的命令：
+%\onecolumn
+%\twocolumn[⟨one-column top material⟩]
+%\twocolumn 支持带一个可选参数，
+%用于排版双栏之上的一部分单栏内容。
+
+%切换单/双栏排版时总是会另起一页（\clearpage）。
+%在双栏模式下使用 \newpage 会换栏而不是换页；
+%\clearpage 则能够换页。
+
+%如以下环境将内容分为 3 栏：
+\begin{multicols}{3}
+    multicol 宏包能够在一页之中切换单栏/多栏，也能处理跨页的分栏，且各栏的高度分布平
+衡。但代价是在 multicols 环境中无法正常使用 table 和 figure 等浮动体环境，它会直接让
+浮动体丢失。multicols 环境中只能用跨栏的 table* 和 figure* 环境，或者用 float 宏包提供
+的 H 参数固定浮动体的位置。
+\end{multicols}
+%multicol 宏包能够在一页之中切换单栏/多栏，
+%也能处理跨页的分栏，且各栏的高度分布平衡。
+%但代价是在 multicols 环境中无法正常使用 table 和 figure 等浮动体环境，
+%它会直接让浮动体丢失。
+%multicols 环境中只能用跨栏的 table* 和 figure* 环境，
+%或者用 float 宏包提供的 H 参数固定浮动体的位置。
+
+%5.5页眉和页脚
+%LATEX 中提供了命令 \pagestyle 来修改页眉页脚的样式：
+%\pagestyle{⟨page-style⟩}
+%命令 \thispagestyle 只影响当页的页眉页脚样式：
+%\thispagestyle{⟨page-style⟩}
+%⟨page-style⟩ 参数为样式的名称，在 LATEX 里预定义了四类样式
+%empty/plain/headings/myheadings
+
+%article 文档类，twoside 选项 偶数页为页码和节标题，奇数页为小节标题和页码；
+%article 文档类，oneside 选项 页眉为节标题和页码；
+%report / book 文档类，twoside 选项 偶数页为页码和章标题，奇数页为节标题和页码；
+%report / book 文档类，oneside 选项 页眉为章标题和页码。
+
+%\pagenumbering 命令令我们能够改变页眉页脚中的页码样式：
+%\pagenumbering{⟨style⟩}
+%⟨style⟩ 为页码样式，默认为 arabic（阿拉伯数字），
+%还可修改为 roman（小写罗马数字）、Roman（大写罗马数字）等
+
+%注意使用 \pagenumbering 命令后会将页码重置为 1。
+%book 文档类的 \frontmatter 和 \mainmatter 内部就使用了 
+%\pagenumbering 命令切换页码样式。
+
+%5.5.2手动更改页眉页脚的内容
+%\markright{⟨right-mark⟩}
+%\markboth{⟨left-mark⟩}{⟨right-mark⟩}
+%在双面排版、headings / myheadings 页眉页脚样式下，
+%⟨left-mark⟩ 和 ⟨right-mark⟩
+% 的内容分别预期出现在左页（偶数页）和右页（奇数页）。
+%事实上 \chapter 和 \section 等章节命令
+%内部也使用 \markboth 或者 \markright 生成页眉。
+
+%LATEX 默认将页眉的内容都转为大写字母。
+%如果需要保持字母的大小写，可以尝试以下代码
+%\renewcommand\chaptermark[1]{%
+%\markboth{Chapter \thechapter\quad #1}{}}
+%\renewcommand\sectionmark[1]{%
+%\markright{\thesection\quad #1}}
+%其中 \thechapter、\thesection 等命令为章节计数器的数值
+%以上代码适用于 report / book 文档类。
+%对于 article 文档类，与两个页眉相关的命令分别为
+%\sectionmark和 \subsectionmark。
+
+%5.5.3fancyhdr宏包
+%fancyhdr 宏包改善了页眉页脚样式的定义方式，
+%允许我们将内容自由安置在页眉和页脚的
+%左、中、右三个位置，还为页眉和页脚各加了一条横线。
+%fancyhdr 自定义了样式名称 fancy。
+%使用 fancyhdr 宏包定义页眉页脚之前，
+%通常先用 \pagestyle{fancy} 调用这个样式。
+%在 fancyhdr 中定义页眉页脚的命令为：
+%\fancyhf[⟨position⟩]{…}
+%\fancyhead[⟨position⟩]{…}
+%\fancyfoot[⟨position⟩]{…}
+%其中 ⟨position⟩ 为 L（左）/C（中）/R（右）以及与 O（奇数页）/E（偶数页）字母的组合。
+%\fancyhf 用于同时定义页眉和页脚，习惯上使用 \fancyhf{} 来清空页眉页脚的设置。
+
+
+% 在导言区使用此代码
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+%\fancyhf{}
+%\fancyfoot[C]{\bfseries\thepage}
+%\fancyhead[LO]{\bfseries\rightmark}
+%\fancyhead[RE]{\bfseries\leftmark}
+%\renewcommand{\headrulewidth}{0.4pt} % 注意不用 \setlength
+%\renewcommand{\footrulewidth}{0pt}
+
+%fancyhdr还支持用\fancypagestyle 为自定义的页眉页脚样式命名，
+%或者重新定义已有的样式如 plain 等：
+% 自定义 myfancy 样式
+%\fancypagestyle{myfancy}{%
+%\fancyhf{}
+%\fancyhead{...}
+%\fancyfoot{...}
+%}
+% 使用样式
+%\pagestyle{myfancy}
+
+
+
+
+
+
+
+
+\end{document}

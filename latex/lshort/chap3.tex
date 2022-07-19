@@ -1,0 +1,622 @@
+
+%3.1章节和目录
+%3.1.1章节标题
+%\chapter{title} \section{title} \subsection{title}
+%\subsubsection{title} \paragraph{title} \subparagraph{title}
+
+%\chapter{}只在repor和book文档中有定义
+%\part将文章分为较大的分块，不影响\chapter或\section编号
+
+%\section[short title]{title}
+%标题中使用title参数，在目录和页眉页脚中使用short title参数
+%\section*{title}
+%标题不带编号，也不生成目录项和页眉页脚
+%较低层次\paragraph和\subparagraph即使不用带星号的变体，
+%生成的标题默认不带编号
+
+%除\part外
+%article文档带编号的层级\section / \subsection / \subsubsection 三级
+%report/book文档带编号的层级\chapter / \section /\subsubsection 三级
+
+%3.1.2目录
+%/tableofcontents
+%使用\chapter*或\section*不生成目录项，手动生成该章节目录项
+%在标题命令后使用：
+%/addcontentsline{toc}{level}{title}
+%level为章节层次，chapter或section
+%title目录项的章节标题
+
+%3.1.3文档结构的划分
+%所有标准文档提供\appendix命令将正文和附录分开
+%使用\appendix后，最高一级章节使用拉丁字母编号，从A开始
+
+%book类文档提供前言、正文、后记
+%\frontmatter前言，页码使用小写罗马数字；其后\chapter不编号
+%\mainmatter正文，页码使用阿拉伯数字，从1开始计数；其后章节编号正常
+%\backmatter后记，页码格式不变，继续正常计数；其后\chapter不编号
+
+%源码3.1：book文档类的文档示例
+\documentclass{ctexbook}
+%导言区，加在宏包和各项设置，包括参考文献、索引等
+
+\title{Test title}
+\author{ Maru\thanks{E-mail:*****@***.com}
+\and Ted\thanks{Corresponding author}
+\and Louis}
+\date{today}
+%\title{}\author{}必须，不用报错，\date{}可选
+%\date默认使用\today
+
+\usepackage{array,tabularx,booktabs,multirow,makecell,graphicx,subcaption}
+
+\graphicspath{{figures/}}
+
+\usepackage{makeidx}%调用makeidx宏包，用来处理索引
+\makeindex%开启索引的收集
+\bibliographystyle{plain}%指定参考文献样式为plain
+\begin{document}
+    
+\frontmatter%前言
+\maketitle%标题页article默认不单独成页，report和book默认单独成页
+\begin{titlepage}
+    \dots
+\end{titlepage}
+\chapter{preface}
+\include{preface}%前言章节preface.tex
+\tableofcontents
+
+\mainmatter%正文
+\chapter{chapter1}
+\include{chapter1}%第一章chapter1.tex
+\chapter{chapter2}
+\include{chapter2}%第二章chapter2.tex
+Some excellent \index{study} books, for example, \cite{Alice13}
+...
+
+%使用 \appendix 后，最高一级章节改为使用拉丁字母编号，从 A 开始
+\appendix%附录
+\chapter{sin}
+\include{appendixA}%附录A appendix.tex
+... 
+
+\backmatter%后记部分
+\chapter{}
+\include{epilogue}%后记epilogue.tex
+\bibliography{books}%利用BibTeX工具从数据库文件books.bib生成参考文献
+\printindex%利用makeindex工具生成索引
+
+
+A reference to this subsection \label{sec:this}
+look like :
+``see section~\ref{sec:this} on page~\pageref{sec:this}.''
+
+“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{出自《千字文》。}
+
+\begin{tabular}{l}
+\hline
+“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnotemark[5] \\
+\hline
+\end{tabular}
+\footnotetext[5]{表格里的名句出自《千字文》}
+
+
+\marginpar{\footnotesize 边注较窄，不要写过多文字，
+最好设置较小的字号}
+
+
+\begin{enumerate}
+    \item An item.
+    \begin{enumerate}
+        \item A nested item.\label{itref}
+        \item[*] A starred item.
+    \end{enumerate}
+    \item Reference(\ref{itref}).
+\end{enumerate}
+
+\begin{itemize}
+    \item An item.
+    \begin{itemize}
+        \item A nested item.
+        \item[+] A `plus' item.
+        \item Another item.
+    \end{itemize}
+    \item Go back to upper level.
+\end{itemize}
+
+\begin{description}
+    \item[Enumerate] Numbered list.
+    \item[Itemize] Non-numbered list. 
+\end{description}
+
+\renewcommand{\labelitemi}{\ddag}
+\renewcommand{\labelitemii}{\dag}
+\begin{itemize}
+    \item First item
+    \begin{itemize}
+        \item Subitem
+        \item Subitem
+    \end{itemize}
+    \item Second item
+\end{itemize}
+
+\renewcommand{\labelenumi}{\Alph{enumi}>}
+\begin{enumerate}
+    \item First item
+    \item Second item
+\end{enumerate}
+
+\begin{center}
+    Centered text using a \verb|center| environment.
+\end{center}
+\begin{flushleft}
+    Left-aligned text using a \verb|flushleft| environment.
+\end{flushleft}
+\begin{flushright}
+    Right-aligned text using a \verb|flushright| environment.
+\end{flushright}
+
+%\centering
+%Centered text paragraph.
+
+%\raggedright
+%Left-aligned text paragraph.
+
+%\raggedleft
+%Rigrh-aligned text paragraph.
+
+
+Francie Bacon says:
+\begin{quote}
+    Knowledge is power.
+\end{quote}
+
+《木兰诗》:
+\begin{quotation}
+万里赴戎机，关山度若飞。
+朔气传金柝，寒光照铁衣。
+将军百战死，壮士十年归。
+
+归来见天子，天子坐明堂。
+策勋十二转，赏赐百千强。⋯⋯
+\end{quotation}
+
+Rabindranath Tagore's short poem:
+\begin{verse}
+Beauty is truth's smile
+when she beholds her own face in a perfect mirror.
+\end{verse}
+
+\begin{verbatim}
+#include<iostream>
+int main()
+{
+    std::cout<<"Hello,world!"
+             << std::endl;
+    return 0;
+}
+\end{verbatim}
+
+\begin{verbatim*}
+for (int i=0; i<4; ++i)
+  printf("Number %d\n",i);
+\end{verbatim*}
+
+\verb|\LaTeX|\\
+\verb+(a || b)+ \verb*+(a || b)+
+
+\begin{tabular}{|c|}
+    center-\\aligned \\
+\end{tabular},
+\begin{tabular}[t]{|c|}
+    top-\\aligned \\
+\end{tabular},
+\begin{tabular}[b]{|c|}
+    bottom-\\aligned \\
+\end{tabular} tabulars.
+
+\begin{tabular}{lcr|p{6em}}
+    \hline
+    left & center & right
+         & par box with fixed width\\
+    L    & C      & R   & P\\
+    \hline
+\end{tabular}
+
+\begin{tabular}{@{} r@{:}lr @{}}
+    \hline
+    1  & 1 & one \\
+    11 & 3 & eleven \\
+    \hline
+\end{tabular}
+
+% \usepackage{array}
+%array 宏包提供了辅助格式 > 和 <，
+%用于给列格式前后加上修饰命令
+\begin{tabular}{>{\itshape}r<{*}l}
+    \hline
+    italic & normal \\
+    column & columc \\
+    \hline
+\end{tabular}
+
+% \usepackage{array}
+\begin{tabular}{>{\centering\arraybackslash}p{9em}}
+    \hline
+    Some center-aligned long text. \\
+    \hline
+\end{tabular}
+
+% \usepackage{array}
+\newcommand\txt{a b c d e f g h i}
+\begin{tabular}{cp{2em}m{2em}b{2em}}
+    \hline
+    pos & \txt & \txt & \txt \\
+    \hline
+\end{tabular}
+
+\begin{tabular*}{14em}%
+    {@{\extracolsep{\fill}}|c|c|c|c|}
+    \hline
+    A & B & C & D \\ \hline
+    a & b & c & d \\ \hline
+\end{tabular*}
+
+% \usepackage{array,tabularx}
+\begin{tabularx}{14em}%
+{|*{4}{>{\centering\arraybackslash}X|}}
+\hline
+A & B & C & D \\ \hline
+a & b & c & d \\ \hline
+\end{tabularx}
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    4 & 9 & 2 \\ \cline{2-3}
+    3 & 5 & 7 \\ \cline{1-1}
+    8 & 1 & 6 \\ \hline
+\end{tabular}
+
+%\begin{tabular}{cccc}
+%    \toprule
+%    & \multicolumn{3}{c}{Numbers} \\
+%    \cmidrule{2-4}
+%    & 1 & 2 & 3 \\
+%    \midrule
+%    Alphabet & A & B  & C \\
+%    Roman    & I & II & III \\
+%   \bottomrule
+%\end{tabular}
+
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    1 & 2 & Center \\ \hline
+    \multicolumn{2}{|c|}{3} &
+    \multicolumn{1}{r|}{Right} \\ \hline
+    4 & \multicolumn{2}{c|}{C} \\ \hline
+\end{tabular}
+
+\begin{tabular}{ccc}
+    \hline
+    \multirow{2}{*}{Item} &
+    \multicolumn{2}{c}{Value} \\
+    \cline{2-3}
+    & First & Second \\ \hline
+  A & 1     & 2 \\ \hline 
+\end{tabular}
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    a & b & c \\ \hline
+    a & \multicolumn{1}{@{}c@{}|}
+    {\begin{tabular}{c|c}
+    e & f \\ \hline
+    e & f \\ 
+    \end{tabular}}
+          & c \\ \hline
+    a & b & c \\ \hline
+\end{tabular}
+
+% \usepackage{makecell}
+\begin{tabular}{|c|c|}
+    \hline
+    a & \makecell{d1 \\ d2} \\
+    \hline
+    b & c \\
+    \hline
+\end{tabular}
+
+\renewcommand\arraystretch{1.8}
+\begin{tabular}{|c|}
+    \hline
+    Really loose \\ \hline
+    tabular rows. \\ \hline
+\end{tabular}
+
+\begin{tabular}{c}
+    \hline
+    Head lines \\[6pt]
+    tabular lines \\
+    tabular lines \\ \hline
+\end{tabular}
+
+%\includegraphics[scale=0.2]{1.png}
+%|\mbox{Test some words.}|\\
+%|\makebox[10em][l]{Test some words.}|\\
+%|\makebox[10em][r]{Test some words.}|\\
+%分散对齐方式强行拉开单词的间距，
+%往往会报 Underfull \hbox 的警告
+%|\makebox[10em][s]{Test some words.}|
+
+\fbox{Test some words.}\\
+\framebox[10em][r]{Test some words.}
+
+\framebox[10em][r]{Test box}\\[1ex]
+\setlength{\fboxrule}{1.6pt}
+\setlength{\fboxsep}{1em}
+\framebox[10em][r]{Test box}
+
+三字经：\parbox[t]{3em}%
+{人之初 性本善 性相近 习相远}
+\quad
+千字文：
+\begin{minipage}[b][8ex]{4em}
+天地玄黄 宇宙洪荒
+\end{minipage}
+
+\fbox{\begin{minipage}{15em}%
+    这是一个垂直盒子的测试。
+    \footnote{脚注来自minipage。}
+\end{minipage}}
+
+black \rule{12pt}{4pt} box.
+
+Upper \rule[4pt]{6pt}{8pt} and 
+lower \rule[-4pt]{6pt}{8pt} box.
+
+A  \rule[-.4pt]{3em}{.4pt} line.
+
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=3cm]{1.png}
+%    \qquad
+%    \includegraphics[width=3cm]{2.png}\\
+%    \includegraphics[width=3cm]{3.jpg}
+%    \caption{并排}
+%\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{15em}
+        \centering
+        \includegraphics[width=3cm]{1.png}
+        \caption{图1}
+    \end{minipage}
+    \qquad
+    \begin{minipage}{15em}
+        \centering
+        \includegraphics[width=3cm]{2.png}
+        \caption{图2}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{15em}
+        \centering
+        \includegraphics[width=3cm]{1.png}
+        \caption{图一}
+    \end{subfigure}
+    \qquad
+    \begin{subfigure}{15em}
+        \centering
+        \includegraphics[width=3cm]{2.png}
+        \caption{图二}
+    \end{subfigure}
+\end{figure}
+
+
+
+\end{document}
+
+
+
+%3.2标题页
+%titlepage 环境，生成不带页眉页脚的一页
+%利用 titlepage 环境重新定义 \maketitle
+%\renewcommand{\maketitle}{\begin{titlepage}
+%... % 用户自定义命令
+%\end{titlepage}}
+
+%3.3交叉引用
+%\label{} 
+%\ref{} \pageref{}c生成交叉引用的编号和页码
+
+%\label命令使用位置
+%章节标题：\section等之后紧接着使用
+%行间公式：单行公式在公式内任意位置使用；
+%多行公式在每一行公式的任意位置使用
+%有序列表：在enumerate每个\item之后、下一个\item之前任意位置使用
+%图表标题：\caption之后紧接着使用
+%定理环境：定理环境内部任意位置使用
+
+%再使用不记编号的命令（\section*、\caption*，带可选参数的\item等）
+%不要使用\label命令，否则生成引用不正确
+
+
+%3.4脚注和边注
+%\footnote{footnote}
+
+%marginpar[left-margin]{right-margin}
+%在边栏位置形成边注
+%只给定right-margin，边注在奇偶页文字相同；
+%同时给定left-margin，偶数页使用left-margin文字
+
+%3.5特殊环境
+%3.5.1列表
+%有序列表和无序列表环境enumerate和itemize
+%用\item标明每个列表项，enumerate自动对列表项编号
+%\begin{enumerate}
+%    \item 
+%\end{enumerate}
+%\item可带可选参数，将有序列表或无序列表符号替换自定义符号
+%列表可以嵌套使用，最多嵌套四层
+
+%关键字环境description
+%\item后可选参数写关键词，粗体表示，一般必填
+%\begin{description}
+%    \item[itemtitle] ... 
+%\end{description}
+
+%各级无序列表由\labelitemi到\labelitemiv定义
+
+%有序列表由\labelenumi到\
+
+%3.5.2对齐环境
+%\begin{center}...\end{center}居中
+%\begin{flushleft}...\end{flushleft}左对齐
+%\begin{flushright}...\end{flushright}右对齐
+
+%除此之外，还可以使用以下命令改变文字对齐方式
+%\centering \raggedright \raggedleft
+
+%\flushleft 或 raggedright不严格用法
+
+%center等环境在上下文产生额外间距，
+%\centering等命令不产生，只改变对齐方式
+%在浮动体环境table和figure内实现居中对齐，用\centering即可
+%没必要再用center环境
+
+%3.5.3引用环境
+%quote引用较短文字，首行不缩进
+%quotation引用若干段文字，首行缩进。
+%引用环境较一般文字有额外的左右缩进
+
+%verse用于排版诗歌，与quotation相反，verse首行悬挂缩进
+
+%3.5.4摘要环境
+%摘要环境abstract默认在标准文档article和report可用
+%一般紧跟\maketitle之后介绍文档的摘要
+%如果文档类制定了titlepage选项，则单独成页；
+%反之，单栏排版时相当于居中小标题加一个quotation环境
+%双栏排版时相当于、section*定义的一节
+
+%3.5.5代码环境
+%verbatim
+%等宽字体排版代码，回车和空格也分别起到换行和空位的作用；
+%带星号的版本更进一步将空格显示成“␣”
+
+%排版简短代码或关键字，使用\verb命令：
+%\verb<delim><code><delim>
+%<delim>标明代码的分界位置，前后一致，
+%除字母、空格或星号外，可任意选择使得不与代码本身冲突
+%习惯上使用|符号
+
+%\verb命令对符号处理比较复杂，一般不能用在其他命令参数里
+%否则多半会出错
+
+%verbatim、fancyvrb、listings宏包
+
+%3.6表格
+%排版表格最基本的 tabular 环境用法为：
+%\begin{tabular}[⟨align⟩]{⟨column-spec⟩}
+%⟨item1⟩ & ⟨item2⟩ & … \\
+%\hline
+%⟨item1⟩ & ⟨item2⟩ & … \\
+%\end{tabular}
+%其中 ⟨column-spec⟩ 是列格式标记，
+%& 用来分隔单元格；\\ 用来换行；
+%\hline 用来在行与行之间绘制横线。
+%可选参数 ⟨align⟩ 控制垂直对齐：
+%t 和 b 分别表示按表格顶部、底部对齐，
+%其他参数或省略不写（默认）表示居中对齐。
+
+%3.6.1列格式
+%表格中每行的单元格数目不能多于列格式里 l/c/r/p 的总数（可以少于这个总数），否则出错。
+%@格式可在单元格前后插入任意的文本，但同时它也消除了单元格前后额外添加的间距。
+%@格式可以适当使用以充当“竖线”。特别地，@{} 可直接用来消除单元格前后的间距
+
+%格式参数重复的写法 *{⟨n⟩}{⟨column-spec⟩}，比如以下两种写法是等效的：
+%\begin{tabular}{|c|c|c|c|c|p{4em}|p{4em}|}
+%\begin{tabular}{|*{5}{c|}*{2}{p{4em}|}}
+
+%辅助格式甚至支持插入\centering 等命令改变p列格式的对齐方式，
+%一般还要加额外的命令\arraybackslash 以免出错
+
+%3.6.2列宽
+
+%3.6.3横线
+
+%booktabs宏包
+
+%3.6.4合并单元格
+%横向合并单元格
+%\multicolumn{⟨n⟩}{⟨column-spec⟩}{⟨item⟩}
+%⟨n⟩ 为要合并的列数，
+%⟨column-spec⟩ 为合并单元格后的列格式，
+%只允许出现一个 l/c/r 或p 格式。
+%如果合并前的单元格前后带表格线 |，
+%合并后的列格式也要带 | 以使得表格的竖线一致
+
+%纵向合并单元格
+% multirow 宏包提供的 \multirow 命令：
+%\multirow{⟨n⟩}{⟨width⟩}{⟨item⟩}
+%⟨width⟩ 为合并后单元格的宽度，可以填 * 以使用自然宽度。
+
+%3.6.5嵌套表格
+%makecell宏包
+
+%3.6.6行距控制
+%\arraystretch
+
+%3.7图片
+%调用graphicx宏包
+%\includegraphics[⟨options⟩]{⟨filename⟩
+% graphicx 宏包还提供了\graphicspath 命令，
+%用于声明一个或多个图片文件存放的目录，
+%使用这些目录里的图片时可不用写路径：
+
+% 假设主要的图片放在 figures 子目录下，
+%标志放在 logo 子目录下
+%\graphicspath{{figures/}{logo/}}
+
+%3.8盒子
+%生成水平盒子的命令如下：
+%\mbox{…}
+%\makebox[⟨width⟩][⟨align⟩]{…}
+
+%3.8.2带框的水平盒子
+%\fbox{…}
+%\framebox[⟨width⟩][⟨align⟩]{…}
+
+%3.8.3垂直盒子
+%\parbox[⟨align⟩][⟨height⟩][⟨inner-align⟩]{⟨width⟩}{…}
+%\begin{minipage}[⟨align⟩][⟨height⟩][⟨inner-align⟩]{⟨width⟩}
+%    …
+%\end{minipage}
+%⟨inner-align⟩ 接受的参数是顶部 t、底部 b、居中 c 和分散对齐 s
+
+%3.8.4标尺盒子
+%\rule 命令用来画一个实心的矩形盒子，
+%也可适当调整以用来画线（标尺）：
+%\rule[⟨raise⟩]{⟨width⟩}{⟨height⟩}
+
+%3.9浮动体
+%以 table 环境的用法举例，figure 同理：
+%\begin{table}[⟨placement⟩]
+%    …
+%\end{table}
+
+%双栏排版环境下，LATEX 提供了 table* 和 figure* 环境用来排版跨栏的浮动体
+%双栏的 ⟨placement⟩ 参数只能用 tp 两个位置
+%float 宏包为浮动体提供了 H 位置参数
+%，不与 htbp 及 ! 混用。使用 H 位置参数时，
+%会取消浮动机制，将浮动体视为一般的盒子插入当前位置。
+
+%3.9.1浮动体的标题
+%\caption{…}
+%\listoftables
+%\listoffigures
+
+%3.9.2并排和子图表
+%subcaption、subfug宏包

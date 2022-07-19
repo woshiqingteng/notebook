@@ -1,0 +1,51 @@
+%!TEX program = xelatex
+\documentclass{beamer}
+
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{fontspec} % 定制字体
+\newfontfamily\menlo{Menlo}
+\usepackage{xcolor} % 定制颜色
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+backgroundcolor=\color{white},      % choose the background color
+basicstyle=\footnotesize\ttfamily,  % size of fonts used for the code
+columns=fullflexible,
+tabsize=4,
+breaklines=true,               % automatic line breaking only at whitespace
+captionpos=b,                  % sets the caption-position to bottom
+commentstyle=\color{mygreen},  % comment style
+escapeinside={\%*}{*)},        % if you want to add LaTeX within your code
+keywordstyle=\color{blue},     % keyword style
+stringstyle=\color{mymauve}\ttfamily,  % string literal style
+frame=none,
+rulesepcolor=\color{red!20!green!20!blue!20},
+% identifierstyle=\color{red},
+language=c++,
+}
+
+\usetheme{Warsaw}
+
+\begin{document}
+\begin{frame}[fragile]
+\begin{block}{MATLAB代码}
+\begin{lstlisting}[language={matlab},
+                   numbers=left,
+                   numberstyle=\tiny\menlo,
+                   basicstyle=\small\menlo]
+for i = 1:2:popSize % pairs counting
+    parent1 = parents(i+0,:);  child1 = parent1;
+    parent2 = parents(i+1,:);  child2 = parent2;
+    % chose two random points of cross-section
+    InsertPoints = sort(ceil(numberofcities*rand(1,2)));
+end
+\end{lstlisting}
+\end{block}
+\end{frame}
+\end{document}
+% Local Variables:
+% TeX-engine: xetex
+% End:

@@ -1,0 +1,191 @@
+%!TEX program = xelatex
+
+\documentclass[10pt]{ctexart}
+
+\usepackage{xparse}
+
+\begin{document}
+%8.1自定义LATEX命令和功能
+%8.1.1自定义新命令
+%使用如下命令可以定义你自己的命令：
+%\newcommand{\⟨name⟩}[⟨num⟩]{⟨definition⟩}
+%\newcommand 的基本用法需要两个必选参数，
+%第一个参数 ⟨name⟩ 是要定义的命令名称（带反斜线），
+%第二个参数 ⟨definition⟩ 是命令的具体定义。
+%方括号里的参数 ⟨num⟩ 是可选的，
+%用于指定新命令所需的参数数目（最多9个）。
+%如果缺省可选参数，默认就是 0，也就是新定义的命令不带任何参数。
+
+\newcommand{\tnss}{The not so Short
+Introduction to \LaTeXe}
+This is ``\tnss'' \ldots{} ``\tnss''
+
+\newcommand{\txsit}[1]{This is the 
+\emph{#1} Short Introduction to \LaTeXe}
+% in the document body:
+\begin{itemize}
+      \item \txsit{not so}
+      \item \txsit{very}
+\end{itemize}
+
+%LATEX 不允许使用 \newcommand 定义一个与现有命令重名的命令。
+%如果需要修改命令定义的话，使用 \renewcommand 命令。
+%它使用与命令 \newcommand 相同的语法。
+%在某些情况之下，使用 \providecommand 命令是一种比较理想的方案：
+%在命令未定义时，它相当于 \newcommand；在命令已定义时，
+%沿用已有的定义。
+
+%8.1.2定义环境
+%与\newcommand 命令类似，可以用\newenvironment 定义新的环境。
+%它的语法如下所示：
+%\newenvironment{⟨name⟩}[⟨num⟩]{⟨before⟩}{⟨after⟩}
+%同样地，\newenvironment 命令有一个可选的参数。
+%在 ⟨before⟩ 中的内容将在此环境包含的文本之前处理，
+%而在 ⟨after⟩ 中的内容将在遇到 \end{⟨name⟩} 命令时处理。
+%下面的例子演示了 \newenvironment 命令的用法：
+
+\newenvironment{king}
+{\rule{1ex}{1ex}%
+\hspace{\stretch{1}}}
+{\hspace{\stretch{1}}%
+\rule{1ex}{1ex}}
+
+\begin{king}
+My humble subjects \ldots  
+\end{king}
+
+%你确实希望改变一个现有的环境，
+%你可以使用命令 \renewenvironment，
+%它使用和命令 \newenvironment 相同的语法。
+
+%8.1.3xparse宏包简介
+%如果需要定义带有多个可选参数、或者带星号的命令或环境，
+%可以使用 xparse 宏包。
+%它提供了\NewDocumentCommand和\NewDocumentEnvironment等命令，
+%具体语法如下：
+%\NewDocumentCommand\⟨name⟩{⟨arg spec⟩}{⟨definition⟩}
+%\NewDocumentEnvironment{⟨name⟩}{⟨arg spec⟩}{⟨before⟩}{⟨after⟩}
+
+%-NoValue- 标记可以用 \IfNoValueTF 等命令来判断：
+%\IfNoValueTF{⟨argument⟩}{⟨true code⟩}{⟨false code⟩}
+%\IfNoValueT{⟨argument⟩}{⟨true code⟩}
+%\IfNoValueF{⟨argument⟩}{⟨false code⟩}
+
+% 百分号用于注释掉不必要的空格和换行符
+\NewDocumentCommand\hello{om}
+{%
+\IfNoValueTF{#1}%
+{Hello, #2!}%
+{Hello, #1 and #2!}%
+}
+\hello{Alice}
+\hello[Bob]{Alice}
+
+%\BooleanTrue 和 \BooleanFalse 
+%则可以用 \IfBooleanTF 等命令来判断：
+%\IfBooleanTF{⟨argument⟩}{⟨true code⟩}{⟨false code⟩}
+%\IfBooleanT{⟨argument⟩}{⟨true code⟩}
+%\IfBooleanF{⟨argument⟩}{⟨false code⟩}
+
+\NewDocumentCommand\hereis{sm}
+{Here is \IfBooleanTF{#1}{an}{a} #2.}
+\hereis{banana}
+\hereis*{apple}
+
+%需要注意的是，与命令不同，环境在定义时名字里面可以包含 *：
+%\NewDocumentEnvironment {mytabular}{ o +m } {...} {...}
+%\NewDocumentEnvironment {mytabular*} { m o +m } {...} {...}
+%用 s 标记的 * 则应该放在 \begin{⟨env⟩} 的后面：
+%\NewDocumentEnvironment { envstar } { s }
+%{\IfBooleanTF {#1} {star} {no star}} {}
+%\begin{envstar}*
+%\end{envstar}
+
+%8.2编写自己的宏包和文档类
+%8.2.1编写简单的宏包
+%如果定义了很多新的环境和命令，文档的导言区将变得很长，
+%在这种情况下，可以建立一个新的 LATEX 宏包来存放所有
+%你自己定义的命令和环境，
+%然后在文档中使用 \usepackage 命令来调用自定义的宏包。
+%写一个宏包的基本工作就是将原本在你的文档导言区里很长的内容
+%拷贝到另一个文件中去，
+%这个文件需要以 .sty 作扩展名。你还需要加入一个宏包专用的命令：
+%\ProvidesPackage{⟨package name⟩}
+
+% Demo Package by Tobias Oetiker
+%\ProvidesPackage{demopack}
+%\newcommand{\tnss}{The not so Short Introduction
+%to \LaTeXe}
+%\newcommand{\txsit}[1]{The \emph{#1} Short
+%Introduction to \LaTeXe}
+%\newenvironment{king}{\begin{quote}}{\end{quote}}
+
+%8.2.2在宏包中调用其他宏包
+%如果你想进一步把各种宏包的功能汇总到一个文件里，
+%而不是在文档的导言区罗列一大堆宏包的话，
+%LATEX 允许你在自己编写的宏包中调用其它宏包，
+%命令为 \RequirePackage，用法和\usepackage 一致：
+%\RequirePackage[⟨options⟩]{⟨package name⟩}
+
+%8.2.3编写自己的文档类
+%自己的文档类以 .cls 作扩展名，开头使用 \ProvidesClass 命令
+%\ProvidesClass{⟨class name⟩}
+%在你的文档类中调用其它文档类的命令是 \LoadClass，
+%用法和 \documentclass 十分相像
+%\LoadClass[⟨options⟩]{⟨package name⟩}
+
+%8.3计数器
+%8.3.1定义和修改计数器
+%定义一个计数器的方法为：
+%\newcounter{⟨counter name⟩}[⟨parent counter name⟩]
+%⟨counter name⟩ 为计数器的名称。计数器可以有上下级的关系，
+%可选参数 ⟨parent countername⟩ 定义为 ⟨counter name⟩ 
+%的上级计数器。
+%以下命令修改计数器的数值，\setcounter 将数值设为 ⟨number⟩；
+%\addtocounter 将数值加上 ⟨number⟩；\stepcounter 将数值加一，
+%并将所有下级计数器归零。
+%\setcounter{⟨counter name⟩}{⟨number⟩}
+%\addtocounter{⟨counter name⟩}{⟨number⟩}
+%\stepcounter{⟨counter name⟩}
+
+%8.3.2计数器的输出格式
+%计数器 ⟨counter⟩ 的输出格式由 \the⟨counter⟩ 表示，
+%如我们在 5.5 一节见过的 \thechapter等。
+%这个值默认以阿拉伯数字形式输出，如果想改成其它形式，
+%需要重定义 \the⟨counter⟩，
+%如将 equation 计数器的格式定义为大写字母：
+%\renewcommand\theequation{\Alph{equation}}
+%命令 \Alph 控制计数器 ⟨counter⟩ 的值以大写字母形式显示。
+
+%计数器的输出格式还可以利用其它字符，
+%甚至其它计数器的输出格式与之组合。
+%如标准文档类里对\subsection相关的计数器的输出格式的定义相当于：
+%\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+%8.3.3LATEX中的计数器
+%• 所有章节命令 \chapter、\section 等分别对应计数器 
+%chapter、section 等等，而且有上下级的关系。
+%而计数器 part 是独立的。
+%• 有序列表 enumerate 的各级计数器为 
+%enumi, enumii, enumiii, enumiv，也有上下级的关系。
+%• 图表浮动体的计数器就是 table 和 figure；公式的计数器为
+%equation。这些计数器在 article文档类中是独立的，
+%而在 report 和 book 中以 chapter 为上级计数器。
+%• 页码、脚注的计数器分别是 page 和 footnote。
+
+%我们可以利用前面介绍过的命令，
+%修改计数器的样式以达到想要的效果，比如把页码修改成大写罗马数字，
+%左右加横线，或是给脚注加上方括号：
+%\renewcommand\thepage{--~\Roman{page}~--}
+%\renewcommand\thefootnote{[\arabic{footnote}]}
+
+%secnumdepth、tocdepth
+
+%8.4LATEX可定制的一些命令和参数
+
+
+
+
+
+
+\end{document}
