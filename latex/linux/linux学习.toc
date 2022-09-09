@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}linux基本概念}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}路径：描述文件位置的方法}{1}{subsection.1.1}%
+\contentsline {section}{\numberline {2}目录操作命令}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}目录切换：cd}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}目录查看：ls}{1}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}创建目录：mkdir}{1}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}删除目录：rm}{1}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}修改目录：mv和cp}{2}{subsection.2.5}%
+\contentsline {section}{\numberline {3}文件操作命令}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}新建文件：touch}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}修改文件权限：chmod octal file}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}压缩/解压文件}{2}{subsection.3.3}%
+\contentsline {section}{\numberline {4}vim编辑器}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}vim移动光标}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}vim删除撤销命令}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}vim查找和替换}{3}{subsection.4.3}%
